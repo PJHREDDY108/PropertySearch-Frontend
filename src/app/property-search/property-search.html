@@ -1,0 +1,110 @@
+<div class="page">
+  <header class="topbar">
+    <h1>Property Address Search</h1>
+    <div class="user-info">
+      <span>{{ authService.getUsername() }}</span>
+      <button (click)="onLogout()">Logout</button>
+    </div>
+  </header>
+
+  <section class="search-panel">
+    <div class="field">
+      <label>Street</label>
+      <input type="text" [(ngModel)]="street" placeholder="e.g. MG Road" />
+    </div>
+    <div class="field">
+      <label>City</label>
+      <input type="text" [(ngModel)]="city" placeholder="e.g. Chennai" />
+    </div>
+    <div class="field">
+      <label>ZIP</label>
+      <input type="text" [(ngModel)]="zip" placeholder="e.g. 600001" />
+    </div>
+    <button (click)="onSearch()" [disabled]="loading">
+      {{ loading ? 'Searching...' : 'Search' }}
+    </button>
+    <button type="button" class="create-btn" (click)="onCreateNew()">
+      + Add Address
+    </button>
+  </section>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <section class="form-panel" *ngIf="showForm">
+    <h3>{{ editingId != null ? 'Edit Address' : 'New Address' }}</h3>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Street</label>
+        <input type="text" [(ngModel)]="formModel.street" name="fStreet" />
+      </div>
+      <div class="field">
+        <label>City</label>
+        <input type="text" [(ngModel)]="formModel.city" name="fCity" />
+      </div>
+      <div class="field">
+        <label>State</label>
+        <input type="text" [(ngModel)]="formModel.state" name="fState" />
+      </div>
+      <div class="field">
+        <label>ZIP</label>
+        <input type="text" [(ngModel)]="formModel.zip" name="fZip" />
+      </div>
+      <div class="field">
+        <label>Property Type</label>
+        <input type="text" [(ngModel)]="formModel.propertyType" name="fType" placeholder="Apartment / Villa / House" />
+      </div>
+      <div class="field">
+        <label>Price</label>
+        <input type="number" [(ngModel)]="formModel.price" name="fPrice" />
+      </div>
+      <div class="field">
+        <label>Bedrooms</label>
+        <input type="number" [(ngModel)]="formModel.bedrooms" name="fBeds" />
+      </div>
+      <div class="field">
+        <label>Bathrooms</label>
+        <input type="number" [(ngModel)]="formModel.bathrooms" name="fBaths" />
+      </div>
+      <div class="field">
+        <label>Sq. Ft.</label>
+        <input type="number" [(ngModel)]="formModel.squareFeet" name="fSqft" />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button (click)="onSaveForm()">{{ editingId != null ? 'Update' : 'Create' }}</button>
+      <button type="button" class="link-btn" (click)="onCancelForm()">Cancel</button>
+    </div>
+  </section>
+
+  <section class="results" *ngIf="searched">
+    <p *ngIf="results.length === 0">No properties found.</p>
+
+    <table *ngIf="results.length > 0">
+      <thead>
+        <tr>
+          <th>Street</th><th>City</th><th>State</th><th>ZIP</th><th>Type</th>
+          <th>Price</th><th>Beds</th><th>Baths</th><th>Sq. Ft.</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of results">
+          <td>{{ r.street }}</td>
+          <td>{{ r.city }}</td>
+          <td>{{ r.state }}</td>
+          <td>{{ r.zip }}</td>
+          <td>{{ r.propertyType }}</td>
+          <td>{{ r.price | number }}</td>
+          <td>{{ r.bedrooms }}</td>
+          <td>{{ r.bathrooms }}</td>
+          <td>{{ r.squareFeet }}</td>
+          <td class="actions-cell">
+            <button class="edit-btn" (click)="onEdit(r)">Edit</button>
+            <button class="delete-btn" (click)="onDelete(r)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

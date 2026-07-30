@@ -1,0 +1,34 @@
+<div class="login-wrapper">
+  <div class="login-card">
+    <h2>Login</h2>
+    <p class="subtitle">Property Address Search</p>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" [(ngModel)]="username" required autocomplete="username" />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" [(ngModel)]="password" required autocomplete="current-password" />
+      </div>
+
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Logging in...' : 'Login' }}
+      </button>
+
+      <button type="button" class="link-btn" (click)="onForgotPassword()">
+        Forgot Password?
+      </button>
+
+      <p class="otp-message" *ngIf="otpMessage">{{ otpMessage }}</p>
+    </form>
+
+    <p class="switch-link">
+      Don't have an account? <a routerLink="/register">Register</a>
+    </p>
+  </div>
+</div>

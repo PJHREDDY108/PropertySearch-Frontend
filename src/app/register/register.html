@@ -1,0 +1,31 @@
+<div class="register-page">
+  <div class="register-card">
+    <h1>Create Account</h1>
+
+    <div class="field">
+      <label>Username</label>
+      <input type="text" [(ngModel)]="username" placeholder="Choose a username" />
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input type="password" [(ngModel)]="password" placeholder="Choose a password" />
+    </div>
+
+    <div class="field">
+      <label>Confirm Password</label>
+      <input type="password" [(ngModel)]="confirmPassword" placeholder="Re-enter password" />
+    </div>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+
+    <button (click)="onRegister()" [disabled]="loading">
+      {{ loading ? 'Registering...' : 'Register' }}
+    </button>
+
+    <p class="switch-link">
+      Already have an account? <a routerLink="/login">Log in</a>
+    </p>
+  </div>
+</div>
