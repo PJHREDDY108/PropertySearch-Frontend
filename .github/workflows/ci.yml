@@ -22,8 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests with coverage
-        run: npx vitest run --coverage
+      - name: Run tests
+        run: npx ng test
 
       - name: Build Angular app
         run: npm run build
